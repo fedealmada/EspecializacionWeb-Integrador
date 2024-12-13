@@ -1,8 +1,4 @@
 # EspecializacionWeb-Integrador
-<h2>Integrantes del grupo</h2>
-Huallpa, Melina<br>
-Almada, Federico
-
 <h2> Próposito del trabajo</h2>
 El objetivo general del trabajo es consolidar el aprendizaje y la aplicación de herramientas y conceptos clave en el desarrollo de aplicaciones web, como la arquitectura en capas, la interacción entre frontend y backend a través de APIs RESTful, y la implementación de interfaces dinámicas con tecnologías modernas.
 
