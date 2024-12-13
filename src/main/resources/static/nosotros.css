@@ -1,0 +1,528 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para el body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    padding-top: 70px;
+
+}
+
+
+/* Estilos para la navbar  */
+.navbar {
+    background: linear-gradient(to right, #06acb8, #034f84);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    transition: font-size 0.3s ease;
+}
+
+.nav-link {
+    font-size: 18px;
+    white-space: normal;
+    transition: transform 0.3s;
+}
+
+.nav-link:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Estilos del carrusel */
+/* General: Configuración del contenedor del Swiper */
+.swiper-container {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Configuración de las imágenes dentro del carrusel */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ajuste para que no se distorsione la imagen */
+}
+
+/* Configuración para los slides */
+.swiper-slide {
+    position: relative;
+    /* Necesario para posicionar elementos hijos con absolute */
+    height: 100%;
+    /* Altura del slide igual al contenedor del carrusel */
+}
+
+/* Contenedor del texto en la parte inferior */
+.text-container {
+    position: absolute;
+    /* Posiciona el texto en relación al slide */
+    bottom: 0;
+    /* Fija el texto en la parte inferior */
+    width: 100%;
+    /* Abarca el ancho completo del slide */
+    background: rgba(0, 0, 0, 0.5);
+    /* Fondo semitransparente */
+    color: white;
+    /* Color del texto en blanco */
+    padding: 15px 20px;
+    /* Espaciado interno para el texto */
+    box-sizing: border-box;
+    /* Incluye el padding en el tamaño total */
+    text-align: center;
+    /* Centra horizontalmente el texto */
+}
+
+/* Títulos del texto (h5) */
+.text-container h5 {
+    margin: 0;
+    /* Elimina márgenes adicionales */
+    font-size: 1.8rem;
+    /* Ajusta el tamaño del título */
+    line-height: 1.2;
+    /* Espaciado entre líneas del título */
+}
+
+/* Párrafos del texto (p) */
+.text-container p {
+    margin: 10px 0 0;
+    /* Añade margen superior entre el párrafo y el título */
+    font-size: 1rem;
+    /* Ajusta el tamaño del párrafo */
+    line-height: 1.5;
+    /* Mejora la legibilidad del texto */
+}
+
+/* Botones de navegación del Swiper */
+.swiper-button-prev,
+.swiper-button-next {
+    color: white;
+    /* Color de los botones */
+    opacity: 0.8;
+    /* Botones ligeramente transparentes */
+    transition: opacity 0.3s ease;
+    /* Transición suave al pasar el mouse */
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    opacity: 1;
+    /* Mayor visibilidad al pasar el mouse */
+}
+
+/* Paginación del Swiper */
+.swiper-pagination {
+    bottom: 10px;
+    /* Alinea la paginación en la parte inferior */
+}
+
+.swiper-pagination-bullet {
+    background: white;
+    /* Color de los indicadores */
+    opacity: 0.7;
+    /* Ligera transparencia */
+}
+
+.swiper-pagination-bullet-active {
+    background: rgba(255, 255, 255, 1);
+    /* Indicador activo más visible */
+}
+
+/* Ajustes para el buscador */
+
+.search-bar {
+    position: relative;
+    /* Para posicionar el botón dentro del contenedor */
+    width: 100%;
+    max-width: 300px;
+    /* Ancho máximo ajustable */
+    margin: 0;
+}
+
+/* Estilo del campo de búsqueda */
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 40px;
+    /* Espacio para el botón */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+/* Botón con la lupa */
+.search-button {
+    position: absolute;
+    /* Para colocarlo dentro del contenedor */
+    right: 10px;
+    /* Separación del borde derecho */
+    top: 50%;
+    /* Centrar verticalmente */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+    transition: transform 0.4s;
+}
+
+.search-button:hover {
+    color: #333;
+}
+
+.search-button:active {
+    transform: rotate(360deg);
+}
+
+/* Para dispositivos pequeños */
+@media (max-width: 768px) {
+    .search-bar {
+        max-width: 100%;
+    }
+
+    .search-input {
+        font-size: 14px;
+    }
+
+    .search-button {
+        font-size: 16px;
+    }
+}
+
+/* Botón de Login */
+.btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+/* Estilo general para la sección de servicios */
+/* Sección de servicios */
+#servicios {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f0f8ff;
+}
+
+#servicios h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #06acb8;
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.service-card {
+    width: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #6a89cc, #06acb8);
+    color: white;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    /* Inicialmente invisible */
+    transform: translateY(50px);
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.service-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.service-card .service-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.service-card .service-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.service-card .service-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.service-card.show {
+    opacity: 1;
+    /* Visible al entrar en pantalla */
+    transform: translateY(0);
+}
+
+/* seccion equipo */
+/* Estilo general para la sección de equipo */
+#equipo {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f0f8ff;
+}
+
+#equipo h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #06acb8
+}
+
+/* seccion equipo */
+/* Contenedor de la sección */
+.team-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.team-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Cards */
+.team-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.team-card {
+    background: linear-gradient(180deg, #6a89cc, #06acb8);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 280px;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    /* Oculto inicialmente */
+    transform: scale(0.8);
+    /* Reducido inicialmente */
+    transition: transform 1s ease-out, opacity 1s ease-out;
+    /* Transición suave */
+}
+
+/* Clase activada al entrar en pantalla */
+.team-card.show {
+    animation: fadeInZoom 1s ease-out forwards;
+    /* Animación definida abajo */
+}
+
+/* Imagen circular dentro de la card */
+.team-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Texto dentro de la card */
+.team-card h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.team-card p {
+    font-size: 1rem;
+    color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+.team-card .role {
+    font-style: italic;
+    color: #e1f5c4;
+}
+
+/* Animaciones */
+@keyframes fadeInZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .team-card {
+        width: 90%;
+        /* Más grande en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .team-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .team-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .team-card p {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* seccion novedades */
+.novedades-slider {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    max-width: 90%; /* Ocupa el 90% del ancho del viewport */
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .swiper {
+    width: 100%;
+    height: 500px; /* Ajusta según el diseño */
+    position: relative;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .slide-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 50%;
+  }
+  
+  .slide-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .slide-content p {
+    font-size: 1.2rem;
+  }
+  
+  /* Personalización de botones */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .swiper-pagination-bullet {
+    background: #333 !important;
+  }
+  
+  
+
+/* Footer */
+footer {
+    background: linear-gradient(to right, #034f84, #06acb8);
+    color: white;
+}
+
+footer h5 {
+    font-weight: bold;
+}
+
+footer a {
+    transition: color 0.3s ease-in-out;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer .bi {
+    font-size: 1.5rem;
+}
+
+footer .bi:hover {
+    color: #f8f9fa;
+}

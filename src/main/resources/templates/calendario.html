@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Citas</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <style>
+        /* General Styles */
+
+        /* Variables de color */
+        :root {
+            --primary-color: rgb(6, 172, 184); /* Color principal */
+            --text-light: #ffffff; /* Texto claro */
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: rgba(6, 172, 184, 0.8);
+            /* Más claro al pasar el mouse */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f5f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #06acb8, #034f84);
+        }
+
+        header span {
+            font-size: 1rem;
+            color: #e3e3e3;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #343a40;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #495057;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Containers */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        #calendar {
+            max-width: 75%;
+            margin: 30px auto;
+            padding: 20px;
+            background: linear-gradient(145deg, #ffffff, #d9e6ed);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        /* Botones del calendario */
+        .fc-button {
+            background-color: #06acb8 !important;
+            border: none !important;
+            color: #fff !important;
+            border-radius: 5px !important;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .fc-button:hover {
+            background-color: #058d98 !important;
+        }
+
+        .fc-toolbar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #06acb8;
+        }
+
+        /* Días del calendario */
+        .fc-daygrid-day:hover {
+            background-color: #d5f5fa;
+            cursor: pointer;
+        }
+
+
+
+        /* Eventos */
+        .fc-event {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none !important;
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Formulario flotante */
+        #formularioTurno {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 350px;
+            z-index: 1000;
+        }
+
+        #formularioTurno h3 {
+            margin-top: 0;
+            color: #06acb8;
+        }
+
+        #formularioTurno form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #formularioTurno label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #formularioTurno input,
+        #formularioTurno select,
+        #formularioTurno button {
+            margin-top: 5px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #formularioTurno button {
+            background-color: #06acb8;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #formularioTurno button:hover {
+            background-color: #058d98;
+        }
+
+        #formularioTurno button#cancelar {
+            background-color: #dc3545;
+        }
+
+        #formularioTurno button#cancelar:hover {
+            background-color: #c82333;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        Hola, Admin <span>¡Bienvenido de nuevo!</span>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">MiPanel</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="menu">
+            <a href="/emr/doctor/inicio">Dashboard</a>
+            <a href="/emr/doctor/listado-pacientes">Ver pacientes</a>
+            <a href="/emr/doctor/agenda">Agenda</a>
+            <a href="/emr/logout">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <h1>Calendario de Turnos</h1>
+    <div id="calendar"></div>
+
+    <div id="formularioTurno">
+        <h3>Crear Turno</h3>
+        <form id="formEvento">
+            <label for="paciente">Paciente:</label>
+            <select id="paciente"></select><br><br>
+            <label for="doctor">Doctor:</label>
+            <select id="doctor"></select><br><br>
+            <label for="servicio">Servicio:</label>
+            <select id="servicio"></select><br><br>
+            <label for="hora">Hora de inicio:</label>
+            <input type="time" id="hora"><br><br>
+            <button type="submit">Guardar Turno</button>
+            <button type="button" id="cancelar">Cancelar</button>
+        </form>
+    </div>
+
+    <script>
+        // Inicializar FullCalendar
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es', // Configura el idioma si deseas que esté en español
+
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+
+                dateClick: function (info) {
+                    showForm(info.dateStr);
+                },
+                events: '/api/turnos', // Cargar citas existentes
+            });
+
+            calendar.render();
+
+            // Cargar pacientes y doctores
+            loadPacientes();
+            loadDoctores();
+            loadServicios();
+
+            // Mostrar el formulario de turnos
+            function showForm(date) {
+                document.getElementById('formularioTurno').style.display = 'block';
+                document.getElementById('formEvento').onsubmit = function (e) {
+                    e.preventDefault();
+                    saveEvent(date);
+                };
+            }
+
+            // Cargar pacientes en el formulario
+            function loadPacientes() {
+                fetch('/api/pacientes')
+                    .then(response => response.json())
+                    .then(pacientes => {
+                        const pacienteSelect = document.getElementById('paciente');
+                        pacientes.forEach(paciente => {
+                            let option = document.createElement('option');
+                            option.value = paciente.id;
+                            option.text = paciente.nombre + ' ' + paciente.apellido + ' (' + paciente.id + ')';
+                            pacienteSelect.appendChild(option);
+                        });
+                    });
+            }
+
+            // Cargar doctores en el formulario
+            function loadDoctores() {
+                fetch('/api/doctores')
+                    .then(response => response.json())
+                    .then(doctores => {
+                        const doctorSelect = document.getElementById('doctor');
+                        doctores.forEach(doctor => {
+                            let option = document.createElement('option');
+                            option.value = doctor.id;
+                            option.text = doctor.nombre + ' - ' + doctor.especialidad + ' (' + doctor.id + ')';
+                            doctorSelect.appendChild(option);
+                        });
+                    });
+            }
+
+            // Cargar doctores en el formulario
+            function loadServicios() {
+                fetch('/api/servicios')
+                    .then(response => response.json())
+                    .then(servicios => {
+                        const servicioSelect = document.getElementById('servicio');
+                        servicios.forEach(servicio => {
+                            let option = document.createElement('option');
+                            option.value = servicio.id;
+                            option.text = servicio.nombre + ' (Tiempo: ' + servicio.bloqueTiempo + 'h)';
+                            option.style.color = servicio.color; // Agregar el color a la opción
+                            servicioSelect.appendChild(option);
+                        });
+                    });
+            }
+
+            // Guardar el evento
+            function saveEvent(date) {
+                const pacienteId = document.getElementById('paciente').value;
+                const doctorId = document.getElementById('doctor').value;
+                const servicioId = document.getElementById('servicio').value;
+                const hora = document.getElementById('hora').value;
+                const servicioSelect = document.getElementById('servicio');
+                const servicioOption = servicioSelect.options[servicioSelect.selectedIndex];
+                const color = servicioOption.style.color; // Obtener el color del servicio seleccionado
+
+                if (!doctorId || !hora) {
+                    alert('Todos los campos son obligatorios');
+                    return;
+                }
+
+                const eventData = {
+                    start: `${date}T${hora}:00`,
+                    pacienteId: pacienteId,
+                    doctorId: doctorId,
+                    servicioId: servicioId,
+                    color: color // Agregar el color al evento
+                };
+
+                fetch('/api/turnos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(eventData)
+                })
+                    .then(response => response.json())
+                    .then(turno => {
+                        calendar.addEvent(turno);
+                        document.getElementById('formularioTurno').style.display = 'none';
+                    });
+            }
+
+            // Cancelar el formulario
+            document.getElementById('cancelar').addEventListener('click', function () {
+                document.getElementById('formularioTurno').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>

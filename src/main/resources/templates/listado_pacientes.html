@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Pacientes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Variables de color */
+        :root {
+            --primary-color: rgb(6, 172, 184); /* Color principal */
+            --text-light: #ffffff; /* Texto claro */
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: rgba(6, 172, 184, 0.8);
+            /* Más claro al pasar el mouse */
+        }
+
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f5f7;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        background: linear-gradient(to right, #06acb8, #034f84);
+    }
+
+    header span {
+        font-size: 1rem;
+        color: #e3e3e3;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #343a40;
+        padding: 10px 20px;
+        color: white;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        h2 {
+            color: #034f84;
+        }
+
+        .container {
+            flex: 1;
+            margin-top: 25px;
+        }
+
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background-color: #235d86;
+            color: white;
+            text-align: center;
+        }
+
+        .table-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-custom {
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: #048c95;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc3545;
+        }
+
+        .navbar a:hover {
+        background-color: #495057;
+    }
+    .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+        footer {
+            background: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 10px 0;
+        }
+
+
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            width: 50%;
+        }
+
+        .input-group .form-control {
+            border-radius: 0.5rem 0 0 0.5rem;
+            border: 1px solid #ced4da;
+        }
+
+        .input-group .btn {
+            border-radius: 0 0.5rem 0.5rem 0;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .input-group .btn:hover {
+            background-color: #048c95;
+        }
+    </style>
+
+</head>
+
+<body>
+        <!-- Header -->
+        <header>
+            Hola, Admin <span>¡Bienvenido de nuevo!</span>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">MiPanel</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu">
+                <a href="/emr/doctor/inicio">Dashboard</a>
+                <a href="/emr/doctor/listado-pacientes">Ver pacientes</a>
+                <a href="/emr/doctor/agenda">Agenda</a>
+                <a href="/emr/logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+
+    <div class="container">
+        <center>
+            <h2>Lista de Pacientes</h2>
+        </center>
+        <hr>
+
+        <!-- Barra de búsqueda -->
+        <input type="text" id="busqueda" placeholder="Buscar pacientes por nombre...">
+        </form>
+        <table border="1" class="table table-striped table-white">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="resultados">
+
+            </tbody>
+        </table>
+
+    </div><br>
+
+
+
+    <script>
+        // Función para cargar pacientes
+        function cargarPacientes(query = '') {
+            $.ajax({
+                url: '/api/pacientes',
+                type: 'GET',
+                data: { nombre: query },
+                success: function (data) {
+                    const tbody = $('#resultados');
+                    tbody.empty(); // Limpia los resultados anteriores
+
+                    if (data.length === 0) {
+                        tbody.append('<tr><td colspan="12">No se encontraron resultados</td></tr>');
+                    } else {
+                        data.forEach(paciente => {
+                            tbody.append(`
+                                <tr>
+                                    <td>${paciente.id}</td>
+                                    <td>${paciente.nombre}</td>
+                                    <td>${paciente.apellido}</td>
+                                    <td>${paciente.username}</td>
+                                    <td>${paciente.nacionalidad}</td>
+                                    <td>${paciente.email}</td>
+                                    <td>
+                                        <a href="/emr/doctor/mostrar/pacientes/${paciente.id}" class="btn btn-custom">Mostrar</a>
+                                        <a href="/pacientes/editar/${paciente.id}" class="btn btn-custom">Editar</a>
+                                        <button class="btn btn-danger" onclick="eliminarPaciente(${paciente.id})">Eliminar</button>
+                                    </td>
+
+
+
+
+                                </tr>
+                            `);
+                        });
+                    }
+                },
+                error: function () {
+                    alert('Error al cargar los pacientes.');
+                }
+            });
+        }
+
+        // Función para eliminar pacientes
+        function eliminarPaciente(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este paciente?")) {
+                $.ajax({
+                    url: '/api/pacientes/eliminar/' + id,
+                    type: 'DELETE',
+                    success: function () {
+                        alert('Paciente eliminado con éxito.');
+                        cargarPacientes(); // Recargar la lista
+                    },
+                    error: function () {
+                        alert('Error al eliminar el paciente.');
+                    }
+                });
+            }
+        }
+
+        // Cargar pacientes al abrir la página
+        $(document).ready(function () {
+            cargarPacientes(); // Carga inicial de pacientes
+
+            // Cargar pacientes al escribir en la barra de búsqueda
+            $('#busqueda').on('keyup', function () {
+                const query = $(this).val();
+                cargarPacientes(query);
+            });
+        });
+    </script>
+
+
+    <script>
+        window.onscroll = function () {
+            shrinkNavbar();
+        };
+
+        function shrinkNavbar() {
+            var navbar = document.querySelector('.navbar');
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                navbar.style.padding = "10px 0";
+                navbar.style.fontSize = "18px";  /* Reduce el tamaño del texto en el scroll */
+            } else {
+                navbar.style.padding = "20px 0";
+                navbar.style.fontSize = "20px";  /* Tamaño normal cuando está en la parte superior */
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

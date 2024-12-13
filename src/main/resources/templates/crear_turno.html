@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Turno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #06acb8;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #06acb8;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #045e68;
+        }
+
+        .btn-link {
+            color: #06acb8;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Crear Nuevo Turno</h1>
+
+    <form th:action="@{/emr/doctor/crear-turno}" method="post">
+        <div class="mb-3">
+            <label for="fechaHora" class="form-label">Fecha y Hora del Turno:</label>
+            <input type="datetime-local" id="fechaHora" name="fechaHora" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="doctorId" class="form-label">ID del Doctor:</label>
+            <input type="number" id="doctorId" name="doctorId" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Crear Turno</button>
+    </form>
+
+    <div class="mt-3 text-center">
+        <a th:href="@{/emr/doctor/gestionar-turnos}" class="btn btn-link">Volver a Gestionar Turnos</a>
+    </div>
+</div>
+
+</body>
+</html>

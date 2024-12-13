@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Variables de color */
+        :root {
+            --primary-color: rgb(6, 172, 184); /* Color principal */
+            --text-light: #ffffff; /* Texto claro */
+        }
+
+   /* General Styles */
+    /* General Styles */
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f5f7;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        background: linear-gradient(to right, #06acb8, #034f84);
+    }
+
+    header span {
+        font-size: 1rem;
+        color: #e3e3e3;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #343a40;
+        padding: 10px 20px;
+        color: white;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar a:hover {
+        background-color: #495057;
+    }
+
+    .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+
+
+
+        /* Estilo del footer */
+        footer {
+            background: linear-gradient(to right, #034f84,#06acb8);
+            color: var(--text-light);
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.875rem;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: rgba(6, 172, 184, 0.8); /* Más claro al pasar el mouse */
+        }
+
+        .list-group-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+        <!-- Header -->
+        <header>
+            Hola, Admin <span>¡Bienvenido de nuevo!</span>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">MiPanel</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu">
+                <a href="/emr/doctor/inicio">Dashboard</a>
+                <a href="/emr/doctor/listado-pacientes">Ver pacientes</a>
+                <a href="/emr/doctor/agenda">Agenda</a>
+                <a href="/logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+
+<!-- Contenedor Principal -->
+<div class="container my-5">
+    <div class="row">
+        <!-- Panel Izquierdo: Información del Paciente -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Información del paciente</div>
+                <div class="card-body text-center">
+                    <!-- Foto del Usuario -->
+                    <img src="https://via.placeholder.com/150" alt="Foto del usuario" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+
+                    <!-- Datos del Usuario -->
+                    <p>
+                        <h2>Datos personales</h1><br>
+    
+                        <div th:if="${paciente != null}">
+                            <p><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></p>
+                            <p><strong>Apellido:</strong> <span th:text="${paciente.apellido}"></span></p>
+                            <p><strong>Email:</strong> <span th:text="${paciente.email}"></span></p>
+                        </div>
+                    <button class="btn btn-custom btn-block mt-3">Editar Perfil</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Central: Historia Clínica -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">Historia Clínica</div>
+                <div class="card-body">
+                    <span th:text="${descripcion}"></span><br><br>
+                    <form th:action="@{/emr/doctor/historia-clinica/{id}(id=${paciente.id})}" method="get">
+                        <input type="submit" class="btn btn-custom btn-block mt-3" value="Ver Historia Clinica" />
+                     </form>
+                </div>
+            </div>
+
+            <!-- Citas Programadas -->
+            <div class="card">
+                <div class="card-header">Citas Programadas</div>
+                <div class="card-body">
+                        <tr th:each="turno : ${turnos}">
+                            <strong>ID:</strong>
+                            <td th:text="${turno.id}"></td><br>
+
+                            <strong>Doctor:</strong>
+                            <td th:text="${turno.doctor.nombre}"></td> <td th:text="${turno.doctor.apellido}"> </td><br>
+
+                            <strong>Paciente:</strong>
+                            <td th:text="${turno.paciente.nombre}"></td> <td th:text="${turno.paciente.apellido}"> </td><br>
+
+
+                            <strong>Inicio:</strong>
+                            <td th:text="${turno.start}"></td><br>
+
+                            <strong>Fin:</strong>
+                            <td th:text="${turno.end}"> </td><br>
+                            <td>
+                                <!-- Botón de editar -->
+                                <a th:href="@{/api/turnos/editar/{id}(id=${turno.id})}">Editar</a>
+         
+                                <!-- Botón de eliminar -->
+                                <a th:href="@{/api/turnos/eliminar/{id}(id=${turno.id})}" 
+                                   onclick="return confirm('¿Estás seguro de que deseas eliminar esta cita?')">Eliminar</a>
+                            </td>    
+                            <hr>                       
+                        </tr>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

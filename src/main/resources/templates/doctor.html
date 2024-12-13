@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio de Admin</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
+
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f5f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #06acb8, #034f84);
+        }
+
+        header span {
+            font-size: 1rem;
+            color: #e3e3e3;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #343a40;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #495057;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Containers */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .mini-calendar-container,
+        .info-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .mini-calendar-container h5,
+        .info-section h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #034f84;
+        }
+
+        .mini-calendar {
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mini-calendar-header {
+            text-align: center;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mini-calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .mini-calendar-day {
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            color: #333333;
+            background-color: #f0f0f0;
+        }
+
+        .mini-calendar-day:hover {
+            background-color: #007bff;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .mini-calendar-day.current-day {
+            background-color: #ffcc00;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+        }
+
+        .mini-calendar-day.inactive-day {
+            color: #cccccc;
+            pointer-events: none;
+        }
+
+
+
+        /* Buttons */
+        button {
+            background: linear-gradient(to right, #06acb8, #034f84);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #034f84;
+        }
+
+        /* Legend */
+        .legend span {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .legend .bg-primary {
+            background-color: #007bff;
+        }
+
+        .legend .bg-success {
+            background-color: #28a745;
+        }
+
+        .badge.cardiologia {
+            background-color: #dc3545;
+        }
+
+        /* Rojo */
+        .badge.oftalmologia {
+            background-color: #17a2b8;
+        }
+
+        /* Cyan */
+        .badge.cirugia {
+            background-color: #f1a414;
+        }
+
+        /* Naranja */
+        .badge.urgencia {
+            background-color: #e5fc1a;
+        }
+
+        /* Amarillo */
+        .badge.pediatria {
+            background-color: #6f42c1;
+        }
+
+        /* Violeta */
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .navbar .menu {
+                display: none;
+                flex-direction: column;
+                background-color: #343a40;
+                position: absolute;
+                top: 50px;
+                right: 0;
+                width: 200px;
+            }
+
+            .navbar .menu.active {
+                display: flex;
+            }
+        }
+
+        /* Card de Clima */
+        #weatherCard {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            max-width: 300px;
+            margin: 0 auto;
+            /* Centrado horizontal */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #weatherCard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #weatherCard h2 {
+            font-size: 1.5rem;
+            color: #034f84;
+            margin-bottom: 15px;
+        }
+
+        #weatherCard div {
+            margin: 10px 0;
+        }
+
+        #weatherCard img {
+            width: 50px;
+            height: 50px;
+            margin-top: 10px;
+        }
+
+        #temp {
+            font-size: 2rem;
+            color: #06acb8;
+            font-weight: bold;
+        }
+
+        #weatherDescription {
+            font-size: 1rem;
+            color: #555;
+            font-style: italic;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <body>
+        <!-- Header -->
+        <header>
+            Hola, Admin <span>¡Bienvenido de nuevo!</span>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">MiPanel</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu">
+                <a href="/emr/doctor/inicio">Dashboard</a>
+                <a href="/emr/doctor/listado-pacientes">Ver pacientes</a>
+                <a href="/emr/doctor/agenda">Agenda</a>
+
+                <a href="/emr/logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Mini Calendar -->
+            <div class="mini-calendar-container">
+
+                <div class="card" id="weatherCard">
+                    <h2>Clima en tu ciudad</h2>
+                    <div id="cityName"></div>
+                    <div id="weatherDescription"></div>
+                    <div id="temp"></div>
+                    <div id="weatherIcon"></div>
+                </div>
+
+                <h5>Mini Calendario</h5>
+                <div id="mini-calendar"></div>
+                <div class="calendar-actions">
+                    <button onclick="location.href='/emr/doctor/agenda'">
+                        Ver Calendario Completo
+                    </button>
+                </div>
+                <div class="legend">
+                    <span class="bg-primary">Consulta</span>
+                    <span class="bg-success">Vacunación</span>
+                    <span class="badge cardiologia">Cardiología</span>
+                    <span class="badge oftalmologia">Oftalmología</span>
+                    <span class="badge cirugia">Cirugía</span>
+                    <span class="badge urgencia">Urgencia</span>
+                    <span class="badge pediatria">Pediatría</span>
+                </div>
+            </div>
+            <!-- Info Section -->
+            <!-- <div class="info-section">
+                <h4>Información Importante</h4>
+                <p>- Revisión médica: lunes 10:00 AM.</p>
+                <p>- Vacunación: jueves 3:00 PM.</p>
+            </div> -->
+
+            <!-- Próximos Turnos -->
+            <div class="info-section">
+                <h4>Próximos Turnos</h4>
+                <tr th:each="turno : ${turnos}">
+                    <strong>ID:</strong>
+                    <td th:text="${turno.id}"></td><br>
+
+                    <strong>Servicio:</strong>
+                    <td th:text="${turno.servicio.nombre}"></td><br>
+
+
+                    <strong>Doctor:</strong>
+                    <td th:text="${turno.doctor.nombre}"></td>
+                    <td th:text="${turno.doctor.apellido}"> </td><br>
+
+                    <strong>Paciente:</strong>
+                    <td th:text="${turno.paciente.nombre}"></td>
+                    <td th:text="${turno.paciente.apellido}"> </td><br>
+
+
+                    <strong>Inicio:</strong>
+                    <td th:text="${turno.start}"></td><br>
+
+                    <strong>Fin:</strong>
+                    <td th:text="${turno.end}"> </td><br>
+                    <hr>
+                </tr>
+            </div>
+        </div>
+
+        <script>
+            // Función para eliminar pacientes
+            function eliminarTurno(id) {
+                if (confirm("¿Estás seguro de que deseas eliminar este turno?")) {
+                    $.ajax({
+                        url: '/api/turnos/eliminar/' + id,
+                        type: 'DELETE',
+                        success: function () {
+                            alert('Turno eliminado con éxito. Presione F5');
+                        },
+                        error: function () {
+                            alert('Error al eliminar el turno.');
+                        }
+                    });
+                }
+            }
+        </script>
+
+
+        <script>
+            function toggleMenu() {
+                const menu = document.querySelector('.menu');
+                menu.classList.toggle('active');
+            }
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const calendarEl = document.getElementById('mini-calendar');
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: false, // Sin controles
+                    height: 300,
+                    events: [
+                        {
+                            title: 'Consulta Médica',
+                            start: '2024-12-20',
+                            color: '#007bff'
+                        },
+                        {
+                            title: 'Vacunación',
+                            start: '2024-12-22',
+                            color: '#28a745'
+                        }
+                    ],
+                    eventClick: function (info) {
+                        alert(`Turno: ${info.event.title}\nFecha: ${info.event.start.toLocaleDateString()}`);
+                    }
+                });
+                calendar.render();
+
+                // Acción al ampliar
+                document.getElementById('expand-calendar').addEventListener('click', function () {
+                    window.location.href = '/calendario_completo.html';
+                });
+            });
+        </script>
+
+
+        <script>
+            // Función para obtener los datos del clima
+            async function getWeather() {
+
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid=7b26c92417fd3678d52eac12dc870222&units=metric&lang=es`;
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    if (data.cod === 200) {
+                        // Extraemos los datos de la API
+                        const cityName = data.name;
+                        const temp = data.main.temp;
+                        const weatherDescription = data.weather[0].description;
+                        const weatherIcon = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+
+                        // Actualizamos el contenido del card
+                        document.getElementById('cityName').innerText = cityName;
+                        document.getElementById('temp').innerText = `${temp} °C`;
+                        document.getElementById('weatherDescription').innerText = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+                        document.getElementById('weatherIcon').innerHTML = `<img src="${weatherIcon}" alt="Icono del clima">`;
+                    } else {
+                        alert('No se pudo obtener el clima.');
+                    }
+                } catch (error) {
+                    alert('Hubo un error al obtener los datos.');
+                    console.error(error);
+                }
+            }
+
+            // Llamamos a la función para cargar el clima
+            getWeather();
+        </script>
+    </body>
+
+</html>

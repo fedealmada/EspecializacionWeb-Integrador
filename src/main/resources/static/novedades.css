@@ -1,0 +1,187 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para el body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    padding-top: 70px;
+
+}
+
+
+/* Estilos para la navbar  */
+.navbar {
+    background: linear-gradient(to right, #06acb8, #034f84);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    transition: font-size 0.3s ease;
+}
+
+.nav-link {
+    font-size: 18px;
+    white-space: normal;
+    transition: transform 0.3s;
+}
+
+.nav-link:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Ajustes para el buscador */
+
+.search-bar {
+    position: relative; /* Para posicionar el botón dentro del contenedor */
+    width: 100%;
+    max-width: 300px; /* Ancho máximo ajustable */
+    margin: 0;
+}
+
+/* Estilo del campo de búsqueda */
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 40px; /* Espacio para el botón */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+/* Botón con la lupa */
+.search-button {
+    position: absolute; /* Para colocarlo dentro del contenedor */
+    right: 10px; /* Separación del borde derecho */
+    top: 50%; /* Centrar verticalmente */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+    transition: transform 0.4s;
+}
+
+.search-button:hover {
+    color: #333;
+}
+
+.search-button:active {
+    transform: rotate(360deg);
+}
+
+/* Para dispositivos pequeños */
+@media (max-width: 768px) {
+    .search-bar {
+        max-width: 100%;
+    }
+
+    .search-input {
+        font-size: 14px;
+    }
+
+    .search-button {
+        font-size: 16px;
+    }
+}
+
+/* Botón de Login */
+.btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+.article-title {
+    color: rgb(6, 172, 184);
+    font-weight: bold;
+}
+
+.article-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.article-section {
+    margin-bottom: 50px;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(to right, #034f84, #06acb8);
+    color: white;
+}
+
+footer h5 {
+    font-weight: bold;
+}
+
+footer a {
+    transition: color 0.3s ease-in-out;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer .bi {
+    font-size: 1.5rem;
+}
+
+footer .bi:hover {
+    color: #f8f9fa;
+}

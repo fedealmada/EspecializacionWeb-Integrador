@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <meta charset="UTF-8">
+    <title>Historia Clínica del Paciente</title>
+    <style>
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f5f7;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        background: linear-gradient(to right, #06acb8, #034f84);
+    }
+
+    header span {
+        font-size: 1rem;
+        color: #e3e3e3;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #343a40;
+        padding: 10px 20px;
+        color: white;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar a:hover {
+        background-color: #495057;
+    }
+
+    .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .navbar .menu {
+                display: none;
+                flex-direction: column;
+                background-color: #343a40;
+                position: absolute;
+                top: 50px;
+                right: 0;
+                width: 200px;
+            }
+
+            .navbar .menu.active {
+                display: flex;
+            }
+        }
+
+        /* Card de Clima */
+        #cardHistoria {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            max-width: 300px;
+            margin: 0 auto;
+            /* Centrado horizontal */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #cardHistoria:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+    /* Containers */
+    .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+</style>
+</head>
+<body>
+
+        <!-- Header -->
+        <header>
+            Hola, Admin <span>¡Bienvenido de nuevo!</span>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">MiPanel</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu">
+                <a href="/emr/doctor/inicio">Dashboard</a>
+                <a href="/emr/doctor/listado-pacientes">Ver pacientes</a>
+                <a href="/emr/doctor/agenda">Agenda</a>
+                <a href="/emr/logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container">
+                <div class="card" id="cardHistoria">
+
+                    <h1>
+                        Historia Clínica de <strong th:text="${historiaClinica.paciente.nombre}"></strong> <strong th:text="${historiaClinica.paciente.apellido}"></strong>
+
+                    </h1>
+
+                    <div>
+                        <h3>Descripción:</h3>
+                        <p th:text="${historiaClinica.descripcion}"></p>
+                    </div>
+
+                        <form th:action="@{/emr/doctor/mostrar/pacientes/{id}(id=${historiaClinica.paciente.id})}" method="get">
+                            <input type="submit" class="btn btn-custom btn-block mt-3" value="Volver" />
+                         </form>
+                    </div>
+
+
+
+
+
+                </div>
+        </div>
+
+</body>
+</html>

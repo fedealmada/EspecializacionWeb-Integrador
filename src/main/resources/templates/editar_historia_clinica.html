@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Historia Clínica</title>
+</head>
+<body>
+    <h1>Editar Historia Clínica</h1>
+
+    <form th:action="@{/guardar-historia-clinica}" th:object="${historiaClinica}" method="post">
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" th:field="*{descripcion}" rows="5" cols="50"></textarea>
+        </div>
+        <br>
+        <div>
+            <button type="submit">Guardar cambios</button>
+        </div>
+    </form>
+
+    <div>
+        <a th:href="@{/historia-clinica/{pacienteId}(pacienteId=${historiaClinica.pacienteId})}">Cancelar</a>
+    </div>
+</body>
+</html>

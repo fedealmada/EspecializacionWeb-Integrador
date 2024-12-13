@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio de Usuario</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
+
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f5f7;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+
+            background: linear-gradient(to right, #06acb8, #034f84);
+
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+
+        }
+
+        header span {
+            font-size: 1.2rem;
+            color: #e3e3e3;
+        }
+
+        /* Responsive Menu */
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .navbar a:hover {
+            background-color: #495057;
+        }
+
+        .navbar .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Calendar Section */
+        .mini-calendar-container {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .mini-calendar-container h5 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        #mini-calendar {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .calendar-actions {
+            margin-top: 10px;
+        }
+
+        .calendar-actions button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .calendar-actions button:hover {
+            background-color: #0056b3;
+        }
+
+        .legend {
+            margin-top: 10px;
+        }
+
+        .legend span {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .legend .bg-primary {
+            background-color: #007bff;
+        }
+
+        .legend .bg-success {
+            background-color: #28a745;
+        }
+
+        /* Info Section */
+        .info-section {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .info-section h4 {
+            margin-bottom: 15px;
+        }
+
+        .info-section p {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar .menu {
+                display: none;
+                flex-direction: column;
+                background-color: #343a40;
+                position: absolute;
+                top: 50px;
+                right: 0;
+                width: 200px;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+            .navbar .menu.active {
+                display: flex;
+            }
+
+            .navbar .hamburger {
+                display: block;
+            }
+
+            .mini-calendar-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+    <style>
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .card img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .card h2 {
+            margin: 10px 0;
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .card .temp {
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <body>
+        <!-- Header -->
+        <header>
+            Hola, Usuario <span>¡Bienvenido de nuevo!</span>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">MiPanel</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu">
+                <a href="/emr/paciente/inicio">Dashboard</a>
+                <a href="#turnos">Turnos</a>
+                <a href="#perfil">Perfil</a>
+                <a href="/emr/logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Mini Calendar -->
+            <div class="mini-calendar-container">
+
+                <div class="card" id="weatherCard">
+                    <h2>Clima en tu ciudad</h2>
+                    <div id="cityName"></div>
+                    <div id="weatherDescription"></div>
+                    <div id="temp"></div>
+                    <div id="weatherIcon"></div>
+                </div>
+
+                <h5>Mini Calendario</h5>
+                <div id="mini-calendar"></div>
+                <div class="calendar-actions">
+                    <button onclick="location.href='calendario-completo.html'">
+                        Ver Calendario Completo
+                    </button>
+                </div>
+                <div class="legend">
+                    <span class="bg-primary">Consulta</span>
+                    <span class="bg-success">Vacunación</span>
+                </div>
+            </div>
+            <!-- Info Section -->
+            <div class="info-section">
+                <h4>Información Importante</h4>
+                <p>- Revisión médica: lunes 10:00 AM.</p>
+                <p>- Vacunación: jueves 3:00 PM.</p>
+            </div>
+
+            <!-- Próximos Turnos -->
+            <div class="info-section">
+                <h4>Próximos Turnos</h4>
+                <p>Consulta médica: 20/11/2024 a las 14:00 hrs.</p>
+                <p>Vacunación: 25/11/2024 a las 10:00 hrs.</p>
+            </div>
+        </div>
+
+        <script>
+            function toggleMenu() {
+                const menu = document.querySelector('.menu');
+                menu.classList.toggle('active');
+            }
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const calendarEl = document.getElementById('mini-calendar');
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: false, // Sin controles
+                    height: 300,
+                    events: [
+                        {
+                            title: 'Consulta Médica',
+                            start: '2024-11-20',
+                            color: '#007bff'
+                        },
+                        {
+                            title: 'Vacunación',
+                            start: '2024-11-22',
+                            color: '#28a745'
+                        }
+                    ],
+                    eventClick: function (info) {
+                        alert(`Turno: ${info.event.title}\nFecha: ${info.event.start.toLocaleDateString()}`);
+                    }
+                });
+                calendar.render();
+
+                // Acción al ampliar
+                document.getElementById('expand-calendar').addEventListener('click', function () {
+                    window.location.href = '/calendario_completo.html';
+                });
+            });
+        </script>
+
+
+        <script>
+            // Función para obtener los datos del clima
+            async function getWeather() {
+
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid=7b26c92417fd3678d52eac12dc870222&units=metric&lang=es`;
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    if (data.cod === 200) {
+                        // Extraemos los datos de la API
+                        const cityName = data.name;
+                        const temp = data.main.temp;
+                        const weatherDescription = data.weather[0].description;
+                        const weatherIcon = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+
+                        // Actualizamos el contenido del card
+                        document.getElementById('cityName').innerText = cityName;
+                        document.getElementById('temp').innerText = `${temp} °C`;
+                        document.getElementById('weatherDescription').innerText = weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+                        document.getElementById('weatherIcon').innerHTML = `<img src="${weatherIcon}" alt="Icono del clima">`;
+                    } else {
+                        alert('No se pudo obtener el clima.');
+                    }
+                } catch (error) {
+                    alert('Hubo un error al obtener los datos.');
+                    console.error(error);
+                }
+            }
+
+            // Llamamos a la función para cargar el clima
+            getWeather();
+        </script>
+    </body>
+
+</html>

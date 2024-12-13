@@ -1,0 +1,291 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para el body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    padding-top: 70px;
+
+}
+
+
+/* Estilos para la navbar  */
+.navbar {
+    background: linear-gradient(to right, #06acb8, #034f84);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    transition: font-size 0.3s ease;
+}
+
+.nav-link {
+    font-size: 18px;
+    white-space: normal;
+    transition: transform 0.3s;
+}
+
+.nav-link:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Ajustes para el buscador */
+
+.search-bar {
+    position: relative; /* Para posicionar el botón dentro del contenedor */
+    width: 100%;
+    max-width: 300px; /* Ancho máximo ajustable */
+    margin: 0;
+}
+
+/* Estilo del campo de búsqueda */
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 40px; /* Espacio para el botón */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+/* Botón con la lupa */
+.search-button {
+    position: absolute; /* Para colocarlo dentro del contenedor */
+    right: 10px; /* Separación del borde derecho */
+    top: 50%; /* Centrar verticalmente */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+    transition: transform 0.4s;
+}
+
+.search-button:hover {
+    color: #333;
+}
+
+.search-button:active {
+    transform: rotate(360deg);
+}
+
+/* Para dispositivos pequeños */
+@media (max-width: 768px) {
+    .search-bar {
+        max-width: 100%;
+    }
+
+    .search-input {
+        font-size: 14px;
+    }
+
+    .search-button {
+        font-size: 16px;
+    }
+}
+
+/* Botón de Login */
+.btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+/* Sección de Contacto */
+
+#contacto {
+    background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Fondo suave */
+    padding: 60px 20px; 
+}
+
+/* Encabezado */
+#contacto h2 {
+    font-size: 2.5rem;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Estilo general del contenedor */
+#contacto .container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Formularios */
+#contacto form {
+    background: #ffffff; 
+    border: 1px solid #ced4da; 
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Campos del formulario */
+#contacto form .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+/* Botón de Enviar */
+#contacto form .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    transition: background-color 0.3s;
+}
+
+#contacto form .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Información de Contacto */
+#contacto .col-md-6 h4 {
+    font-size: 1.25rem;
+    color: #495057;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#contacto .col-md-6 p {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+/* Redes Sociales */
+#contacto .btn-outline-primary,
+#contacto .btn-outline-info,
+#contacto .btn-outline-danger {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+#contacto .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+#contacto .btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+#contacto .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Mapa */
+#contacto iframe {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    margin-top: 20px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    #contacto h2 {
+        font-size: 2rem;
+    }
+
+    #contacto .btn-outline-primary,
+    #contacto .btn-outline-info,
+    #contacto .btn-outline-danger {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 1rem;
+    }
+}
+
+
+/* Footer */
+footer {
+    background: linear-gradient(to right, #034f84, #06acb8);
+    color: white;
+}
+
+footer h5 {
+    font-weight: bold;
+}
+
+footer a {
+    transition: color 0.3s ease-in-out;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer .bi {
+    font-size: 1.5rem;
+}
+
+footer .bi:hover {
+    color: #f8f9fa;
+}
